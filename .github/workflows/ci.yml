@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout
@@ -26,14 +29,22 @@ jobs:
       - name: Build MAUI
         run: dotnet build AutoUpdateDemo/AutoUpdateDemo.csproj --configuration Release --no-restore
 
-      - name: Build Updater
-        run: dotnet build AutoUpdateDemo.Updater/AutoUpdateDemo.Updater.csproj --configuration Release
-
       - name: Publish MAUI
         run: dotnet publish AutoUpdateDemo/AutoUpdateDemo.csproj --configuration Release --framework net10.0-windows10.0.19041.0 --runtime win-x64 --no-restore --output ./publish -p:PublishReadyToRun=false
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Publish Updater
+        run: dotnet publish AutoUpdateDemo.Updater/AutoUpdateDemo.Updater.csproj --configuration Release --output ./publish
+
+      - name: Create package
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: pwsh
+        run: |
+          Compress-Archive `
+            -Path ./publish/* `
+            -DestinationPath ./AutoUpdateDemo-${{ github.ref_name }}.zip
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
         with:
-          name: AutoUpdateDemo
-          path: ./publish
+          files: AutoUpdateDemo-${{ github.ref_name }}.zip
