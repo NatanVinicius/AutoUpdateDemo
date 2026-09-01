@@ -1,10 +1,11 @@
 ﻿@page "/"
 
 @using Velopack
+@using Velopack.Sources
 
 <div class="update-page">
 
-    <h1>Auto Update Demo</h1>
+    <h1>Auto Update Demo — v1.0.4</h1>
 
     @switch (_state)
     {
@@ -224,7 +225,10 @@
     private static UpdateManager CreateUpdateManager()
     {
         return new UpdateManager(
-            @"C:\Dev\Projects\Dev Keyence\AutoUpdateDemo\UpdateSource");
+            new GithubSource(
+                "https://github.com/NatanVinicius/AutoUpdateDemo",
+                null,
+                false));
     }
 
     private enum UpdateState
