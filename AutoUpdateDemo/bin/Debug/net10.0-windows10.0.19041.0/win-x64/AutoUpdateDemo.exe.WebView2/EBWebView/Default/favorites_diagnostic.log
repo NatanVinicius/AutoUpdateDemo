@@ -1,0 +1,19 @@
+2026-09-01 12:49:57.369: [INFO] CurrentProfilePath: C:\Dev\Projects\Dev Keyence\AutoUpdateDemo\AutoUpdateDemo\bin\Debug\net10.0-windows10.0.19041.0\win-x64\AutoUpdateDemo.exe.WebView2\EBWebView\Default
+2026-09-01 12:49:57.369: [INFO] Profiles total count: 1
+2026-09-01 12:49:57.369: [INFO] Profile: name=Perfil 1 path=C:\Dev\Projects\Dev Keyence\AutoUpdateDemo\AutoUpdateDemo\bin\Debug\net10.0-windows10.0.19041.0\win-x64\AutoUpdateDemo.exe.WebView2\EBWebView\Default lastActive=null
+2026-09-01 12:49:57.369: [INFO] LastUsedProfileDir: C:\Dev\Projects\Dev Keyence\AutoUpdateDemo\AutoUpdateDemo\bin\Debug\net10.0-windows10.0.19041.0\win-x64\AutoUpdateDemo.exe.WebView2\EBWebView\Default
+2026-09-01 12:49:57.369: [INFO] OnDoneLoading sync enabled: 0
+2026-09-01 12:49:57.369: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-01 12:49:57.369: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-01 12:49:57.369: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-01 12:50:25.047: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-01 12:57:39.771: [INFO] CurrentProfilePath: C:\Dev\Projects\Dev Keyence\AutoUpdateDemo\AutoUpdateDemo\bin\Debug\net10.0-windows10.0.19041.0\win-x64\AutoUpdateDemo.exe.WebView2\EBWebView\Default
+2026-09-01 12:57:39.771: [INFO] Profiles total count: 1
+2026-09-01 12:57:39.772: [INFO] Profile: name=Perfil 1 path=C:\Dev\Projects\Dev Keyence\AutoUpdateDemo\AutoUpdateDemo\bin\Debug\net10.0-windows10.0.19041.0\win-x64\AutoUpdateDemo.exe.WebView2\EBWebView\Default lastActive=2026-09-01T12:49:57.983Z
+2026-09-01 12:57:39.772: [INFO] LastUsedProfileDir: C:\Dev\Projects\Dev Keyence\AutoUpdateDemo\AutoUpdateDemo\bin\Debug\net10.0-windows10.0.19041.0\win-x64\AutoUpdateDemo.exe.WebView2\EBWebView\Default
+2026-09-01 12:57:39.772: [INFO] MostRecentlyActiveProfile: name=Perfil 1 path=C:\Dev\Projects\Dev Keyence\AutoUpdateDemo\AutoUpdateDemo\bin\Debug\net10.0-windows10.0.19041.0\win-x64\AutoUpdateDemo.exe.WebView2\EBWebView\Default lastActive=2026-09-01T12:49:57.983Z
+2026-09-01 12:57:39.772: [INFO] OnDoneLoading sync enabled: 0
+2026-09-01 12:57:39.772: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-01 12:57:39.772: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-01 12:57:39.772: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-01 13:01:12.786: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
