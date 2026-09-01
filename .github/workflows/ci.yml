@@ -19,7 +19,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore
-        run: dotnet restore AutoUpdateDemo.sln
+        run: dotnet restore AutoUpdateDemo.sln -r win-x64
 
       - name: Build
-        run: dotnet build AutoUpdateDemo.sln --configuration Release --no-restore
+        run: dotnet build AutoUpdateDemo.sln --configuration Release --no-restore -r win-x64
