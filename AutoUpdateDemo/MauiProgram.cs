@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-
 namespace AutoUpdateDemo;
 
 public static class MauiProgram

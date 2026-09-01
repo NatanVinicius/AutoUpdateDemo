@@ -1,5 +1,241 @@
 ﻿@page "/"
 
-<h1>Auto Update Demo</h1>
+@using Velopack
 
-Welcome to your new app.
+<div class="update-page">
+
+    <h1>Auto Update Demo</h1>
+
+    @switch (_state)
+    {
+        case UpdateState.Checking:
+            <div class="update-panel">
+                <h2>Verificando atualização</h2>
+                <p>Verificando se existe uma nova versão...</p>
+            </div>
+            break;
+
+        case UpdateState.UpdateAvailable:
+            <div class="update-panel">
+                <h2>Nova versão disponível</h2>
+
+                <p>
+                    Versão atual:
+                    <strong>@_currentVersion</strong>
+                </p>
+
+                <p>
+                    Nova versão:
+                    <strong>@_newVersion</strong>
+                </p>
+
+                <button @onclick="DownloadUpdateAsync">
+                    Baixar atualização
+                </button>
+            </div>
+            break;
+
+        case UpdateState.Downloading:
+            <div class="update-panel">
+                <h2>Baixando atualização</h2>
+
+                <p>
+                    Versão:
+                    <strong>@_newVersion</strong>
+                </p>
+
+                <p>
+                    Progresso:
+                    <strong>@_progress%</strong>
+                </p>
+
+                <progress value="@_progress" max="100"></progress>
+            </div>
+            break;
+
+        case UpdateState.Ready:
+            <div class="update-panel">
+                <h2>Atualização pronta</h2>
+
+                <p>
+                    A versão
+                    <strong>@_newVersion</strong>
+                    está pronta para ser instalada.
+                </p>
+
+                <button @onclick="InstallUpdate">
+                    Atualizar agora
+                </button>
+            </div>
+            break;
+
+        case UpdateState.Installing:
+            <div class="update-panel">
+                <h2>Instalando atualização</h2>
+
+                <p>
+                    Aplicando a nova versão...
+                </p>
+            </div>
+            break;
+
+        case UpdateState.Offline:
+            <div class="update-panel">
+                <h2>Sem conexão</h2>
+
+                <p>
+                    Não foi possível verificar atualizações.
+                </p>
+
+                <button @onclick="CheckForUpdateAsync">
+                    Tentar novamente
+                </button>
+            </div>
+            break;
+
+        case UpdateState.Error:
+            <div class="update-panel">
+                <h2>Erro ao atualizar</h2>
+
+                <p>@_errorMessage</p>
+
+                <button @onclick="CheckForUpdateAsync">
+                    Tentar novamente
+                </button>
+            </div>
+            break;
+
+        default:
+            <div class="update-panel">
+                <p>
+                    Versão instalada:
+                    <strong>@_currentVersion</strong>
+                </p>
+
+                <button @onclick="CheckForUpdateAsync">
+                    Verificar atualização
+                </button>
+            </div>
+            break;
+    }
+
+</div>
+
+@code {
+
+    private UpdateManager? _updateManager;
+    private UpdateInfo? _update;
+
+    private UpdateState _state = UpdateState.Idle;
+
+    private string _currentVersion = "Desconhecida";
+    private string? _newVersion;
+    private string? _errorMessage;
+
+    private int _progress;
+
+    protected override void OnInitialized()
+    {
+        _updateManager = CreateUpdateManager();
+
+        _currentVersion =
+            _updateManager.CurrentVersion?.ToString()
+            ?? "Desconhecida";
+    }
+
+    private async Task CheckForUpdateAsync()
+    {
+        if (_updateManager is null)
+            return;
+
+        _state = UpdateState.Checking;
+        _errorMessage = null;
+
+        await InvokeAsync(StateHasChanged);
+
+        try
+        {
+            _update = await _updateManager.CheckForUpdatesAsync();
+
+            if (_update is null)
+            {
+                _state = UpdateState.Idle;
+                return;
+            }
+
+            _newVersion =
+                _update.TargetFullRelease.Version.ToString();
+
+            _state = UpdateState.UpdateAvailable;
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+            _state = UpdateState.Error;
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task DownloadUpdateAsync()
+    {
+        if (_updateManager is null || _update is null)
+            return;
+
+        _state = UpdateState.Downloading;
+        _progress = 0;
+        _errorMessage = null;
+
+        await InvokeAsync(StateHasChanged);
+
+        try
+        {
+            await _updateManager.DownloadUpdatesAsync(
+                _update,
+                progress =>
+                {
+                    _progress = progress;
+
+                    InvokeAsync(StateHasChanged);
+                });
+
+            _state = UpdateState.Ready;
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+            _state = UpdateState.Error;
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void InstallUpdate()
+    {
+        if (_updateManager is null || _update is null)
+            return;
+
+        _state = UpdateState.Installing;
+
+        _updateManager.ApplyUpdatesAndRestart(
+            _update.TargetFullRelease);
+    }
+
+    private static UpdateManager CreateUpdateManager()
+    {
+        return new UpdateManager(
+            @"C:\Dev\Projects\Dev Keyence\AutoUpdateDemo\UpdateSource");
+    }
+
+    private enum UpdateState
+    {
+        Idle,
+        Checking,
+        UpdateAvailable,
+        Downloading,
+        Ready,
+        Installing,
+        Error,
+        Offline
+    }
+}

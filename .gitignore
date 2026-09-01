@@ -1,0 +1,28 @@
+# Build
+bin/
+obj/
+
+# Publish
+publish/
+
+# Velopack generated packages/releases
+Releases/
+Releases-*/
+UpdateSource/
+
+# Visual Studio
+.vs/
+
+# Visual Studio Code
+.vscode/
+
+# User-specific files
+*.user
+*.suo
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+.DS_Store
