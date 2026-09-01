@@ -26,3 +26,12 @@ jobs:
 
       - name: Build Updater
         run: dotnet build AutoUpdateDemo.Updater/AutoUpdateDemo.Updater.csproj --configuration Release
+
+      - name: Publish MAUI
+        run: dotnet publish AutoUpdateDemo/AutoUpdateDemo.csproj --configuration Release --runtime win-x64 --no-restore --output ./publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AutoUpdateDemo
+          path: ./publish
