@@ -28,7 +28,7 @@ jobs:
         run: dotnet build AutoUpdateDemo.Updater/AutoUpdateDemo.Updater.csproj --configuration Release
 
       - name: Publish MAUI
-        run: dotnet publish AutoUpdateDemo/AutoUpdateDemo.csproj --configuration Release --runtime win-x64 --no-restore --output ./publish
+        run: dotnet publish AutoUpdateDemo/AutoUpdateDemo.csproj --configuration Release --framework net10.0-windows10.0.19041.0 --runtime win-x64 --no-restore --output ./publish
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
