@@ -33,8 +33,8 @@
         <ApplicationId>com.companyname.autoupdatedemo</ApplicationId>
 
         <!-- Versions -->
-        <ApplicationDisplayVersion>1.0.4</ApplicationDisplayVersion>
-        <ApplicationVersion>5</ApplicationVersion>
+        <ApplicationDisplayVersion>1.0.6</ApplicationDisplayVersion>
+        <ApplicationVersion>7</ApplicationVersion>
 
         <!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
         <WindowsPackageType>None</WindowsPackageType>
